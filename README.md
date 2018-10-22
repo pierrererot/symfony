@@ -6,15 +6,15 @@ Here's a part of a quick Symfony project I did. It shows some entities, controll
 
 - PHP >= 7.1.9 (http://php.net/downloads.php/)
 - Composer (https://getcomposer.org/)
-- Yarn (https://yarnpkg.com/lang/en/docs/install/)
+- Yarn (https://yarnpkg.com/lang/en/docs/install/) (optional, but useful)
 
 # Installation
 
-- git clone  https://github.com/pierrererot/symfonyExample.git 'yourNewFolder'
+- git clone  https://github.com/pierrererot/symfony.git 'yourNewFolder'
 - cd 'yourNewFolder'
 - configure the ".env" file according to your local database (the current .env is an exemple of MY personal configuration)
-- composer install
-- yarn run encore dev
+- composer install (prepare a coffee...)
+- yarn run encore dev (optional)
 - create and fill your local database (reminders in the "Tips" section below if you forgot some useful Symfony commands)
 - php bin/console doctrine:fixtures:load --no-interaction (installing dataFixtures)
 - php -S 127.0.0.1:8000 -t public
