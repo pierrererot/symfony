@@ -32,7 +32,7 @@ Here's a part of a quick Symfony project I did. It shows some entities, controll
 - useful command N°3 : php bin/console doctrine:migrations:migrate (apply the Migration files)
 
 # Easter egg
-- When you are connected, you can create a new Order. The result into the data/xml/yourOrderId.xml ! 
+- When you are connected, you can create a new Order. The result is the data/xml/yourOrderId.xml file. Check it ! 
 
 
 ENJOY !
