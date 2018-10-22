@@ -1,0 +1,37 @@
+
+<div id="content-state" role="tabpanel" class="tab-pane fade in" aria-labelledby="home-tab">
+    {# PROGRESS BAR #}
+    <div class="x_panel">
+        <div class="x_content">
+            <div id="step-progressbar-1"></div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-12">
+        <div class="x_panel">
+            <div class="x_content">
+                <div>
+                    <h2>{{ 'order.label.checkpoints'|trans }}</h2>
+                </div>
+                <div class="dashboard-widget-content">
+                    <ul class="list-unstyled timeline widget">
+                        {% if order.supplyChainVisibility %}
+                            {% for scvStep in order.supplyChainVisibility.steps %}
+                                {{
+                                    include(
+                                        'orders_pokeIhm/bloc/scv_step.html.twig',
+                                        {
+                                            "date": scvStep.doAt|date("d/m/Y H:i")|default("") ,
+                                            "site": scvStep.label|default("") ,
+                                            "scode": scvStep.statusCode|default("") ,
+                                            "status": scvStep.statusLabel|default("") ,
+                                        }
+                                    )
+                                }}
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

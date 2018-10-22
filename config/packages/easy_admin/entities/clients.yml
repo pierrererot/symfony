@@ -1,0 +1,35 @@
+easy_admin:
+    entities:
+        Clients:
+            templates:
+                paginator: '@App/Default/fragments/_showzz.html.twig'
+            class: App\Entity\Client
+            label: 'Agences'
+            list:
+                sort: ['id', 'ASC']
+                actions:
+                    - { name: 'show', label: '', icon: 'search' }
+                    - { name: 'edit', label: '', icon: 'edit' }
+                    - { name: 'delete', label: '', icon: 'trash' }
+                fields:
+                    - id
+                    - orders
+                    - sourceReference
+                    - siret
+                    - siren
+                    - { property: 'users', label: "User" }
+            show:
+                fields:
+                    - id
+                    - orders
+                    - sourceReference
+                    - siret
+                    - siren
+                    - { property: 'users', label: "User" }
+            form:
+                fields:
+                    - orders
+                    - sourceReference
+                    - siret
+                    - siren
+                    - { property: 'users', label: "User" }

@@ -1,0 +1,6 @@
+#index:
+#  path: /
+#  controller: App\Controller\PagesController::index
+
+google_login:
+  path: /login/check-google

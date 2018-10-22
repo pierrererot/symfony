@@ -1,0 +1,45 @@
+{% extends "layouts/wrapper/content.html.twig" %}
+
+{% block title %} Prospect {% endblock %}
+
+{% block subtitle %} Confirm prospect {% endblock %}
+
+{% block content %}
+
+    {% if form is defined and form is not null %}
+        <div id="values" hash="{{ hash }}" email="{{ email }}" class="x_panel">
+            <div class="x_title">
+                <h2>Changez votre mot de passe temporaire</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+                <div class="col-md-6 col-xs-12">
+                    {#FORM - START#}
+                    {{ form_start(form,{ 'attr': {'class': 'form-horizontal form-label-left'} }) }}
+                    {{ form_row(form.email, {'attr':{'class':'form-control'}}) }}
+                    {{ form_row(form.hash, {'attr':{'class':'form-control'}}) }}
+                    {%  for password in form.password %}
+                        {{ form_label(password, null, {'attr':{'class':'form-control'}}) }}
+                        {{ form_widget(password, {'attr':{'class':'form-control'}}) }}
+                    {% endfor %}
+                    <button>Envoyer</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% block javascripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript">
+
+            $( document ).ready(function() {
+                $("#prospect_confirm_email").val($("#values").attr("email"));
+                $("#prospect_confirm_hash").val($("#values").attr("hash"));
+            });
+
+        </script>
+    {% endblock %}
+
+{% endblock %}

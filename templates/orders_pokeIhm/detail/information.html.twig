@@ -1,0 +1,85 @@
+<div id="content-info" role="tabpanel" class="tab-pane fade" id="tab_content22" aria-labelledby="profile-tab">
+    {# Information génériques #}
+    <div class="x_panel">
+        <div class="x_content">
+            {#DATE & CO#}
+            <div class="row">
+                <div class="col-sm-12 col-md-12" >
+                    <div class="data-group-small">
+                        <div class="data-label">{{ 'order.label.detail'|trans }}</div>
+                        <div class="data-value">
+                            <div class="col-md-6">
+                                <div> <span class="data-label"> {{ 'Date d\'opération'|trans }}</span><span> {{ order.operationDate ? order.operationDate|date('d/m/Y') : '-'}}</span></div>
+                                <div> <span class="data-label"> {{ 'order.label.created_at'|trans }}</span><span> {{ order.createdAt ? order.createdAt|date('d/m/Y') : '-'}}</span></div>
+                                <div> <span class="data-label"> {{ 'order.label.created_by'|trans }}</span><span> {{ order.createdBy |default('-') }}</span></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div> <span class="data-label"> {{ 'Rendez-vous le'|trans }}</span><span> {{ order.rdvAt ?  order.rdvAt|date('d/m/Y') : '-'}}</span></div>
+                                <div> <span class="data-label"> {{ 'Facturé le'|trans }}</span><span> {{ order.billDate ? order.billDate|date('d/m/Y') : '-'}}</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {#CHECKPOINTS#}
+    <div class="row">
+        <div class="col-sm-12 col-lg-6">
+            {{
+            include(
+                'orders_pokeIhm/bloc/x_panel_checkpoint.html.twig',
+                {
+                    'prefixTitle':  'order.label.initial_checkpoint'|trans ,
+                    'checkpoint':{
+                        'label': order.initialCheckpoint.label|default(''),
+                        'contactsite':{
+                            'phonenumber': order.initialCheckpoint.contact.phoneNumber|default('-'),
+                            'name':order.initialCheckpoint.contact.name|default('-')
+                        },
+                        'rdvcontact':{
+                            'phonenumber': order.initialCheckpoint.contactRdv.phoneNumber|default('-'),
+                            'name':order.initialCheckpoint.contactRdv.name|default('-')
+                        },
+                        'address':{
+                            'recipient': order.initialCheckpoint.address.fullRecipient |default('-'),
+                            'street': order.initialCheckpoint.address.fullStreet |default('-'),
+                            'postcode': order.initialCheckpoint.address.postcode|default('-'),
+                            'city': order.initialCheckpoint.address.city|default('-'),
+                            'country': order.initialCheckpoint.address.country|default('-'),
+                        }
+                    }
+                }
+            )
+            }}
+        </div>
+        <div class="col-sm-12 col-lg-6">
+            {{
+            include(
+                'orders_pokeIhm/bloc/x_panel_checkpoint.html.twig',
+                {
+                    'prefixTitle':  'order.label.final_checkpoint'|trans ,
+                    'checkpoint':{
+                        'label': order.finalCheckpoint.label|default(''),
+                        'contactsite':{
+                            'phonenumber': order.finalCheckpoint.contact.phoneNumber|default('-'),
+                            'name':order.finalCheckpoint.contact.name|default('-')
+                        },
+                        'rdvcontact':{
+                            'phonenumber': order.finalCheckpoint.contactRdv.phoneNumber|default('-'),
+                            'name':order.finalCheckpoint.contactRdv.name|default('-')
+                        },
+                        'address':{
+                            'recipient': order.finalCheckpoint.address.fullRecipient |default('-'),
+                            'street': order.finalCheckpoint.address.fullStreet |default('-'),
+                            'postcode': order.finalCheckpoint.address.postcode|default('-'),
+                            'city': order.finalCheckpoint.address.city|default('-'),
+                            'country': order.finalCheckpoint.address.country|default('-'),
+                        }
+                    }
+                }
+            )
+            }}
+        </div>
+    </div>
+</div>

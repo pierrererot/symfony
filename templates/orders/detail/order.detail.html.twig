@@ -1,0 +1,57 @@
+
+
+
+{% if comments is defined %}
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>{{ 'Commentaires' }}</h2>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>status</th>
+                    <th>createdAt</th>
+                    <th>updateAt</th>
+                    <th>content</th>
+                    <th>user</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for comment in comments %}
+                    <tr>
+                        <td>{{ comment.id }}</td>
+                        <td>{{ comment.status }}</td>
+                        <td>{{ comment.createdAt|date("m/d/Y H:i:s") }}</td>
+                        <td>{{ comment.updatedAt|date("m/d/Y H:i:s") }}</td>
+                        <td>{{ comment.content }}</td>
+                        {% if comment.user.username is defined %}
+                            <td>{{ comment.user.username }}</td>
+                        {% else %}
+                            <td>Unknown user</td>
+                        {%  endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endif %}
+
+
+<div class="x_panel">
+    <div class="x_title">
+        <h2>{{ 'Ajouter un commentaire' }}</h2>
+        <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+        {% form_theme form 'bootstrap_4_layout.html.twig' %}
+        {{ form_start(form) }}
+        {{ form_row(form.content) }}
+        <button type="button submit" class="btn btn-default">Enregistrer</button>
+        {{ form_end(form) }}
+
+    </div>
+</div>

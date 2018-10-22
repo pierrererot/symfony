@@ -1,0 +1,81 @@
+{% extends 'layouts/wrapper/content.html.twig' %}
+
+{% block subtitle %} {% trans %}stock.statuser.subtitle{% endtrans %} {% endblock %}
+
+{% block content %}
+
+<div class="x_panel">
+    <div class="x_content">
+
+        <form class="form-horizontal col-md-12 col-sm-12 col-xs-12">
+
+            <div class="row">
+
+                {{ include ('component/button-date.html.twig', {'label':'stock.filter.statuser.date.label'|trans, 'id':3 } ) }}
+
+            </div>
+            <div class="row">
+
+                {{ include ('component/select.html.twig', {'label':'stock.filter.deposit.label'|trans, 'id':0, 'placeholder':'stock.filter.deposit.placeholder'|trans, 'optionList': app.user.agencies }) }}
+
+                {{ include ('component/select.html.twig', {'label':'stock.filter.username.label'|trans, 'id':1, 'placeholder':'stock.filter.username.placeholder'|trans, 'optionList': selects['username'] }) }}
+
+            </div>
+
+        </form>
+    </div>
+</div>
+<div class="x_panel">
+    <div class="x_content">
+
+    {{ include ('component/datatable.html.twig', {'id':'statuser'}) }}
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block JSloadWhenPageIsReady %}
+
+    <script type="text/javascript">
+        var loadWhenPageIsReady = function($, moment) {
+
+            // initialize span of date button
+            let dateSpan = document.querySelector('#date3 span');
+            dateSpan.innerHTML = moment().startOf('day').format('DD/MM/YYYY') + ' - ' + moment().endOf('day').format('DD/MM/YYYY');
+
+            // initialize table
+            var table = $('#statuser').loadDataTable(
+                // Data location
+                window.location.href + "data",
+                // Columns details
+                [
+                    {"width": "20%", "name": "LIB_DEPOT",   "title": "{{ 'stock.column.agency.label'|trans }}"},
+                    {"width": "40%", "name": "USER",        "title": "{{ 'stock.column.username.label'|trans }}"},
+                    {"width": "10%", "name": "NB_MVT",      "title": "{{ 'stock.column.actual_quantity.label'|trans }}"},
+                    {"width": "0%", "name": "DATE",   visible: false},
+                    {"width":"10%", "name":"SOLDE_RECEP",   "title":"{{ 'stock.column.balance_RECEP.label'|trans }}"},
+                    {"width":"10%", "name":"SOLDE_FUSION",  "title":"{{ 'stock.column.balance_FUSION.label'|trans }}"},
+                    {"width":"10%", "name":"SOLDE_REGUL",   "title":"{{ 'stock.column.balance_REGUL.label'|trans }}"},
+                    {"width":"10%", "name":"SOLDE_PREPA",   "title":"{{ 'stock.column.balance_PREPA.label'|trans }}"},
+
+                ],
+                // Export CSV location
+                window.location + 'export',
+                // Specific method for generate export filename
+                function(){
+                    let inputData = $('#date3').data('daterangepicker');
+                    let start = inputData.startDate;
+                    let end = inputData.endDate;
+                    return "{{ 'stock.statuser.filename.prefix'|trans }}" + start.format('YYYYMMDDHHmm') + "{{ 'stock.filename.middle'|trans }}" + end.format('YYYYMMDDHHmm') + '.csv';
+                },
+                null,
+                null,
+                // Initial Column Filter
+                [  null, null, null, { "search": moment().startOf('day').format('DD/MM/YYYY HH:mm') + ' - ' + moment().endOf('day').format('DD/MM/YYYY HH:mm') }]
+            );
+
+            $('.customdatepicker').loadCustomDateRangePicker(table, 3);
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,33 @@
+easy_admin:
+    entities:
+        Prospects:
+            templates:
+                # Twig namespace template syntax
+                paginator: '@App/Default/fragments/_showzz.html.twig'
+                # legacy template syntax works too:
+                # paginator: 'AppBundle:Default:fragments/_paginator.html.twig'
+            class: App\Entity\Prospect
+            label: 'Prospects'
+            list:
+                sort: ['id', 'ASC']
+                actions:
+                    - { name: 'show', label: '', icon: 'search' }
+                    - { name: 'edit', label: '', icon: 'edit' }
+                    - { name: 'delete', label: '', icon: 'trash' }
+                fields:
+                    - id
+                    - email
+                    - hash
+            show:
+                fields:
+                    - id
+                    - email
+                    - hash
+            edit:
+                fields:
+                    - email
+                    - hash
+            form:
+                fields:
+                    - email
+                    - hash

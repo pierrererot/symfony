@@ -1,0 +1,65 @@
+# https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+security:
+    encoders:
+        App\Security\User\LdapUser:
+            algorithm: bcrypt
+            cost: 15
+        App\Security\User\GoogleUser:
+            algorithm: bcrypt
+            cost: 15
+        App\Security\User\DefaultUser:
+            algorithm: bcrypt
+            cost: 15
+    providers:
+        db_provider:
+            id: App\Security\User\ExtranetUserProvider
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+            http_basic: ~
+            provider: db_provider
+            form_login_extranet:
+                login_path: login
+                check_path: login
+                csrf_token_generator: security.csrf.token_manager
+            logout:
+                path: /logout
+                target: /login
+            oauth:
+                resource_owners:
+                    google:        "/login/check-google"
+                login_path:        /login
+                use_forward:       false
+                failure_path:      /login
+
+                oauth_user_provider:
+                    service: App\Security\User\ExtranetUserProvider
+
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+
+    access_control:
+        - { path: ^/soap/test, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/soap, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/client/search, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/orders_manual, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/profile, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/connect, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/logout, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/admin-tools, roles: ROLE_INTERNAL_USER }
+        - { path: ^/new_prospect, roles: ROLE_ADMIN }
+        - { path: ^/prospect, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/, roles: IS_AUTHENTICATED_FULLY }
+
+
+    access_denied_url: /login
+
+    role_hierarchy:
+        ROLE_INTERNAL_USER: ROLE_USER
+        ROLE_ADMIN: ROLE_INTERNAL_USER

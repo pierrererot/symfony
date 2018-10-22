@@ -1,0 +1,26 @@
+{% extends "layouts/wrapper/content.html.twig" %}
+
+{% block title %} Prospect {% endblock %}
+
+{% block subtitle %} New prospect {% endblock %}
+
+{% block content %}
+
+    {% if message is defined and message is not null %}
+        {{ message }}
+    {% endif %}
+
+    {% if completed == true %}
+        {{ "L'email a été envoyé au prospet. Voulez-vous envoyer un autre email ?" }}
+    {% endif %}
+
+    <div class="x_content">
+        <div class="form-group">
+            {{ form_start(form,{ 'attr': {'class': 'form-horizontal form-label-left'} }) }}
+            {{ form_row(form.email) }}
+            <button type="button submit" class="btn btn-primary">Générer prospet</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}

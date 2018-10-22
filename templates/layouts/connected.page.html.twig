@@ -1,0 +1,34 @@
+{% extends "layouts/base.html.twig" %}
+
+{% block title %} {% trans %} page.title.prefix {% endtrans %} {% block subtitle %}{% endblock %} {% endblock %}
+
+{% block body %}
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+
+
+        {{  include ('layouts/partial/side.menu.html.twig') }}
+
+        {{  include ('layouts/partial/top.navigation.html.twig') }}
+
+        <div class="right_col" role="main">
+            <div class="">
+                {% block wrapper %} {% endblock %}
+            </div>
+        </div>
+
+        {#{{  include ('layouts/partial/footer.html.twig') }}#}
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block JSloadWhenPageIsReady %}
+    <script type="text/javascript">
+        var loadWhenPageIsReady = function($, moment) {
+            $('#loadingContentWrapper').hide();
+        }
+    </script>
+{% endblock %}

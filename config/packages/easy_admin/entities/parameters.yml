@@ -1,0 +1,13 @@
+easy_admin:
+    entities:
+        Parameters:
+            templates:
+                paginator: '@App/Default/fragments/_showzz.html.twig'
+            class: App\Entity\Parameters
+            label: 'Paramètres'
+            max_results: 1
+            list:
+                actions: ['-edit', '-new']
+                sort: ['id', 'ASC']
+                fields:
+                     - { property: 'communicationOMP', label: 'Communication OMP', css_class: 'large' }

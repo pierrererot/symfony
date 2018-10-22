@@ -1,0 +1,35 @@
+easy_admin:
+    entities:
+        Agencies:
+            templates:
+                # Twig namespace template syntax
+                paginator: '@App/Default/fragments/_showzz.html.twig'
+                # legacy template syntax works too:
+                # paginator: 'AppBundle:Default:fragments/_paginator.html.twig'
+            class: App\Entity\Agency
+            label: 'Agences'
+            list:
+                sort: ['id', 'ASC']
+                actions:
+                    - { name: 'show', label: '', icon: 'search' }
+                    - { name: 'edit', label: '', icon: 'edit' }
+                    - { name: 'delete', label: '', icon: 'trash' }
+                fields:
+                    - id
+                    - code
+                    - database
+                    - label
+                    - trader
+            show:
+                fields:
+                    - id
+                    - code
+                    - database
+                    - label
+                    - { property: 'trader', label: "Commercial" }
+            form:
+                fields:
+                    - code
+                    - database
+                    - label
+                    - { property: 'trader', label: 'Commercial', type: 'easyadmin_autocomplete' }

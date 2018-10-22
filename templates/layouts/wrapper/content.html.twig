@@ -1,0 +1,28 @@
+{% extends "/layouts/connected.page.html.twig" %}
+
+{% block wrapper %}
+
+
+    <div class="page-title">
+        <div class="title_left">
+            <h3>
+                {% block subtitle %} {% endblock %}
+            </h3>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+
+    <div id="ContentWrapper" class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            {%  block content %} {% endblock %}
+        </div>
+    </div>
+
+    <div id="loadingContentWrapper" class="wrapper-modal">
+        <div class="loader"></div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'component/abstract-form-component.html.twig' %}
+{% block htmlComponent %}
+    <label class="control-label"> {{ label }} </label>
+    <select id="select{{ id }}" class="select2_group form-control" multiple="multiple" data-placeholder="{{ placeholder }}" style="width: 100%">
+        {% if optionList is defined %}
+            {% for key,val in optionList %}
+                {% if val != '' %}
+                    <option value="{{ val }}">{{ val}}</option>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% if entityList is defined %}
+            {% for entity in entityList %}
+                {% if entity.id != '' %}
+                    <option value="{{ entity }}">{{ entity }}</option>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% if booleanList is defined %}
+            <option value="true">OUI</option>
+            <option value="false">NON</option>
+        {% endif %}
+    </select>
+{% endblock %}

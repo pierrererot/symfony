@@ -1,0 +1,47 @@
+{% extends "/layouts/wrapper/content.html.twig" %}
+
+{% block title %} Orders - OrderDetail {% endblock %}
+{% block subtitle %} OrderDetail {% endblock %}
+
+{% block content %}
+
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>{{ 'Commandes' }}</h2>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>id</th>
+                    <th>status</th>
+                    <th>internal_reference</th>
+                    <th>external_reference</th>
+                    <th>planned_at</th>
+                    <th>update_at</th>
+                    <th>created_at</th>
+                    <th>client_code</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="cursor-pointer" onclick='document.location="{{ path('view_order', {'order_id': order.id}) }}"'>
+                    <td>{{ order.id }}</td>
+                    {% if order.status.id is defined %}
+                        <td>{{ order.status.id }}</td>
+                    {%  endif %}
+                    <td>{{ order.internalReference }}</td>
+                    <td>{{ order.externalReference }}</td>
+                    <td>{{ order.plannedAt|date("m/d/Y") }}</td>
+                    <td>{{ order.updatedAt|date("m/d/Y") }}</td>
+                    <td>{{ order.createdAt|date("m/d/Y") }}</td>
+                    <td>{{ order.client.sourceReference }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {{ include('orders/detail/order.detail.html.twig', ({'comments':comments, 'form':form})) }}
+
+{% endblock %}

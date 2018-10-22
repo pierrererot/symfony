@@ -1,0 +1,120 @@
+{% extends 'layouts/wrapper/content.html.twig' %}
+
+{% block subtitle %} TEST IHM - DETAIL  {% endblock %}
+
+{% block content %}
+
+    <div class="col-sm-12" >
+        {# PROGRESS CARTOUCHE#}
+        <div class="row">
+            {{ include('orders_pokeIhm/bloc/x_panel_tiles.html.twig', {'size':'4', 'iconClasses':'fa fa-tag', 'label': 'order.label.internal_reference'|trans , 'value':order.sourceReference}) }}
+            {{ include('orders_pokeIhm/bloc/x_panel_tiles.html.twig', {'size':'4', 'iconClasses':'fa fa-exchange', 'label': 'order.label.external_reference'|trans , 'value':order.clientOrderReference}) }}
+            {{ include('orders_pokeIhm/bloc/x_panel_tiles.html.twig', {'size':'4', 'iconClasses':'fa fa-user', 'label': 'Client'|trans , 'value':order.client.sourceReference}) }}
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <div class="" role="tabpanel" data-example-id="togglable-tabs">
+                            <ul id="myTab1" class="nav nav-tabs bar_tabs left" role="tablist">
+                                <li id="li-state" role="presentation" class=""><a href="#state" role="tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">{{ 'order.detail.tab.label.state'|trans }}</a>
+                                </li>
+                                <li id="li-info" role="presentation" class=""><a href="#info" role="tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">{{ 'order.detail.tab.label.information'|trans }}</a>
+                                </li>
+                                <li id="li-product" role="presentation" class=""><a href="#product" role="tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">{{ 'order.detail.tab.label.products'|trans }}</a>
+                                </li>
+                                <li id="li-file" role="presentation" class=""><a href="#file" role="tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">{{ 'order.detail.tab.label.files'|trans }}</a>
+                                </li>
+                            </ul>
+                            <div id="myTabContent2" class="tab-content">
+                                {{ include('orders_pokeIhm/detail/state.html.twig') }}
+                                {{ include('orders_pokeIhm/detail/information.html.twig') }}
+                                {{ include('orders_pokeIhm/detail/products.html.twig') }}
+                                {{ include('orders_pokeIhm/detail/files.html.twig') }}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block JSloadWhenPageIsReady %}
+
+    <script type="text/javascript">
+
+    var loadWhenPageIsReady = function($, moment ) {
+
+        // Chargement terminée
+        $('#loadingContentWrapper').hide();
+        $('#ContentWrapper').show();
+
+        // Tab events and session open
+        if(!$.fn.getStorageItem("tab")) {
+            $.fn.setStorageItem("tab","state");
+        }
+
+        // Onglet
+        $('#li-'+$.fn.getStorageItem("tab")).addClass("active");
+        $('#li-'+$.fn.getStorageItem("tab") +' a').attr("aria-expanded","true");
+        $('#content-'+$.fn.getStorageItem("tab")).addClass("active in");
+
+        // During Navigation
+        $('#myTab1 li').each( function () {
+
+            $(this).click(function () {
+                $('#li-'+$.fn.getStorageItem("tab")).removeClass("active");
+                $('#li-'+$.fn.getStorageItem("tab") +' a').attr("aria-expanded","false");
+                $('#content-'+$.fn.getStorageItem("tab")).removeClass("active in");
+                $.fn.setStorageItem("tab",this.id.substring(3));
+                $('#li-'+$.fn.getStorageItem("tab")).addClass("active");
+                $('#li-'+$.fn.getStorageItem("tab") +' a').attr("aria-expanded","true");
+                $('#content-'+$.fn.getStorageItem("tab")).addClass("active in");
+           })
+        });
+
+
+
+        var bar = $('#step-progressbar-1').stepProgressBar({
+            steps: [
+                {
+                    topLabel: '<i class="glyphicon glyphicon-home"></i> {{ 'order.detail.progressbar.step.arrived_in_network'|trans}}',
+                    value: 1,
+                },
+                {
+                    bottomLabel: '<i class="glyphicon glyphicon-equalizer"></i> {{ 'order.detail.progressbar.step.in_transit'|trans}}',
+                    value: 2,
+                },
+                {
+                    topLabel: '<i class="glyphicon glyphicon-equalizer"></i> {{ 'order.detail.progressbar.step.reception_at_delivery_agency'|trans}}',
+                    value: 3,
+                },
+                {
+                    value: 4,
+                    bottomLabel: '<i class="fa fa-truck"></i> {{ 'order.detail.progressbar.step.delivery'|trans}}',
+                },
+                {
+                    value: 5,
+                    topLabel: '<i class="glyphicon glyphicon-home"></i> {{ 'order.detail.progressbar.step.delivered'|trans}}',
+                    {% if order.rdvAt %}
+                        bottomLabel: '<i class="glyphicon glyphicon-phone-alt"></i> RDV le {{ order.rdvAt|date("d/m/Y")}}',
+                        rdvLabel: true
+                    {% endif %}
+                },
+                {
+                    value: 6,
+                    bottomLabel: '<i class="glyphicon glyphicon-file"></i> {{ 'order.detail.progressbar.step.invoiced'|trans}}',
+                }
+            ]
+        });
+
+        $('#step-progressbar-1').stepProgressBar('setCurrentValue', {{ order.status.progressBarValue|default(0) }});
+
+
+    };
+    </script>
+{% endblock %}

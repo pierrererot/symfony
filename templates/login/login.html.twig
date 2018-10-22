@@ -1,0 +1,59 @@
+{% extends "layouts/base.html.twig" %}
+
+{% block title %} Login {% endblock %}
+
+{% block body %}
+
+    <body class="login">
+        <div>
+            <div class="login_wrapper">
+                <div class="animate form login_form">
+                    <section class="login_content">
+                        <form action="{{ path('login') }}" method="post">
+
+                            <h1> Authentification </h1>
+                            {% if error %}
+                                <div class="panel-warning"></div>
+                                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                                    </button>
+                                   {{ error.messageKey|trans(error.messageData, 'security') }}
+                                </div>
+                            {% endif %}
+
+
+                            <div class="form-group">
+                                <a href="{{ hwi_oauth_login_url('google') }}" ><img src="{{ asset('custom/font/btn_google_signin_dark_normal_web.png') }}"></a>
+                            </div>
+
+                            <h2> ou </h2>
+
+                            <div class="form-group">
+                                <input type="text" name="_username" id="username" placeholder="Username" class="form-control" value="{{ last_username }}">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="password" name="_password" placeholder="Password" id="password" class="form-control">
+                            </div>
+
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                            <div>
+                                <button type="submit" class="btn btn-info pull-right">Connect</button>
+                            </div>
+
+
+                            <div class="clearfix"></div>
+
+                            <div class="separator">
+                                <h1> Bienvenue sur votre espace AltéAd </h1>
+                                <p> terms & copirght & etc...</p>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </body>
+
+{% endblock %}

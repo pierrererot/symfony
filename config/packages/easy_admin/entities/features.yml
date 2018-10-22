@@ -1,0 +1,35 @@
+easy_admin:
+    entities:
+        Features:
+            templates:
+                # Twig namespace template syntax
+                paginator: '@App/Default/fragments/_showzz.html.twig'
+                # legacy template syntax works too:
+                # paginator: 'AppBundle:Default:fragments/_paginator.html.twig'
+            class: App\Entity\Feature
+            label: 'Features'
+            list:
+                sort: ['id', 'ASC']
+                actions:
+                    - { name: 'show', label: '', icon: 'search' }
+                    - { name: 'edit', label: '', icon: 'edit' }
+                    - { name: 'delete', label: '', icon: 'trash' }
+                fields:
+                    - id
+                    - name
+                    - path
+                    - enabled
+                    - usergroups
+            show:
+                fields:
+                    - id
+                    - { property: 'enabled', label: 'active' }
+                    - name
+                    - path
+                    - { property: 'usergroups', label: "Groupes d'utilisateurs", type: 'checkbox' }
+            form:
+                fields:
+                    - name
+                    - path
+                    - { property: 'usergroups', label: "Groupes d'utilisateurs", type_options: { expanded: true, multiple: true } }
+                    - { property: 'enabled', label: 'active' }

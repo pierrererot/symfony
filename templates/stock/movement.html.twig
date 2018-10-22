@@ -1,0 +1,126 @@
+{% extends 'layouts/wrapper/content.html.twig' %}
+
+{% block subtitle %} {% trans %}stock.movement.subtitle{% endtrans %} {% endblock %}
+
+{% block content %}
+
+<div class="x_panel">
+    <div class="x_content">
+
+        <form class="form-horizontal col-md-12 col-sm-12 col-xs-12">
+
+            <div class="row">
+
+                {{ include ('component/button-date.html.twig', {'label': 'stock.filter.movement.date.label'|trans, 'id':6} ) }}
+
+            </div>
+            <div class="row">
+
+                {{ include ('component/select.html.twig', {'label':'stock.filter.deposit.label'|trans, 'id':0, 'placeholder':'stock.filter.deposit.placeholder'|trans, 'entityList': app.user.agencies }) }}
+
+                {{ include ('component/select.html.twig', {'label':'stock.filter.client_code.label'|trans, 'id':1, 'placeholder':'stock.filter.client_code.placeholder'|trans, 'entityList': app.user.clients }) }}
+
+                {{ include ('component/select.html.twig', {'label':'stock.filter.client_label.label'|trans, 'id':2, 'placeholder':'stock.filter.client_label.placeholder'|trans, 'entityList': app.user.clients }) }}
+
+            </div>
+            <div class="row">
+
+                {{ include ('component/input.html.twig', {'label':'Référence commande interne', 'id':3, 'placeholder':'Chercher commande interne' }) }}
+
+                {{ include ('component/input.html.twig', {'label':'Référence commande client', 'id':4, 'placeholder':'Chercher commande client' }) }}
+
+                {{ include ('component/input.html.twig', {'label':'Article', 'id':11, 'placeholder':'Chercher article' }) }}
+
+            </div>
+            <div class="row">
+
+                {{ include ('component/select.html.twig', {'label':'Mouvement', 'id':8, 'placeholder':'Choix du mouvment', 'optionList': selects['movement'] }) }}
+
+                {{ include ('component/select.html.twig', {'label':'Etat', 'id':9, 'placeholder':'Choix de l\'Etat', 'optionList': selects['condition'] }) }}
+
+                {{ include ('component/select.html.twig', {'label':'Utilisateur', 'id':10, 'placeholder':'Choix des utilisateur', 'optionList': selects['username'] }) }}
+
+            </div>
+            <div class="row">
+
+                {{ include ('component/select.html.twig', {'label':'Type', 'id':7, 'placeholder':'Choix du type', 'optionList': selects['movement_type'] }) }}
+
+            </div>
+        </form>
+    </div>
+</div>
+<div class="x_panel">
+    <div class="x_content">
+
+        {{ include ('component/datatable.html.twig', {'id':'movement'}) }}
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block JSloadWhenPageIsReady %}
+
+    <script type="text/javascript">
+
+        var loadWhenPageIsReady = function($, moment) {
+
+            // // Initilaze First Filter by Date
+            let dateSpan = document.querySelector('#date6 span');
+            dateSpan.innerHTML = moment().startOf('day').format('DD/MM/YYYY') + ' - ' + moment().endOf('day').format('DD/MM/YYYY');
+
+            //Initialize Datatable
+            var table = $('#movement').loadDataTable(
+
+                window.location.href + "data",
+                [
+                    {"width": "10%", "name": "LIB_DEPOT", "title": "{{ 'stock.column.deposit.label'|trans }}"},
+                    {"width": "15%", "name": "CLIENT_CODE", "title": "{{ 'stock.column.client_code.label'|trans }}"},
+                    {"width": "15%", "name": "CLIENT_LABEL", "title": "{{ 'stock.column.client_label.label'|trans }}"},
+                    {"width": "10%", "name": "CDE", "title": "{{ 'stock.column.internal_reference.label'|trans }}"},
+                    {"width": "10%", "name": "REF_CDE", "title": "{{ 'stock.column.external_reference.label'|trans }}"},
+                    {"width": "5%", "name": "QTE_REEL", "title": "{{ 'stock.column.actual_quantity.label'|trans }}"},
+                    {"width": "10%", "name": "DATE", "title": "{{ 'stock.column.moved_at.label'|trans }}"},
+                    {"width": "5%", "name": "TPE", "title": "{{ 'stock.column.movement_type.label'|trans }}"},
+                    {"width": "5%", "name": "MVT", "title": "{{ 'stock.column.movement.label'|trans }}"},
+                    {"width": "5%", "name": "ETAT", "title": "{{ 'stock.column.condition.label'|trans }}"},
+                    {"width": "20%", "name": "USER", "title": "{{ 'stock.column.username.label'|trans }}"},
+                    {
+                        "width": "5%",
+                        "name": "ARTICLE",
+                        "title": "{{ 'stock.column.items.label'|trans }}" +'&nbsp<span class="fa fa-search-minus"></span>',
+                        "render": function (data, type, row) {
+                            if (row[11] !== null) {
+                                return "<span class='fa fa-search-plus'></span>"
+                            } else {
+                                return "-"
+                            }
+                        },
+                        "className": 'details-control',
+                        orderable: false
+                    }
+                ],
+                window.location + 'export',
+                function () {
+                            let inputData = $('#date6').data('daterangepicker');
+                            let start = inputData.startDate;
+                            let end = inputData.endDate;
+                            return "{{ 'stock.movement.filename.prefix'|trans }}" + start.format('YYYYMMDDHHmm') + "{{ 'stock.filename.middle'|trans }}" + end.format('YYYYMMDDHHmm') + '.csv';
+                },
+                11,
+                "{{ 'stock.column.items.label'|trans|upper }}:",
+                [null, null, null, null, null, null, { "search": moment().startOf('day').format('DD/MM/YYYY HH:mm') + ' - ' + moment().endOf('day').format('DD/MM/YYYY HH:mm') },
+                    null, null, null, null, null
+                ],
+                function (row) {
+                    return row.data()[11];
+                }
+            );
+
+            $('.customdatepicker').loadCustomDateRangePicker(table, 6);
+        }
+    </script>
+
+
+
+{% endblock %}

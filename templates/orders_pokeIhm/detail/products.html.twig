@@ -1,0 +1,37 @@
+<div id="content-product" role="tabpanel" class="tab-pane fade" id="tab_content33" aria-labelledby="profile-tab">
+    {# Articles #}
+    <div class="x_panel">
+        <div class="x_content">
+            <div class="row">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Désignation</th>
+                        <th>Numéro de Série</th>
+                        <th>Quantitée</th>
+                        <th>Poids</th>
+                        <th>Dimensions(Longueur x largeur x hauteur)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for product in order.products %}
+                        <tr>
+                            <td>{{ product.code }}</td>
+                            <td>{{ product.designation }}</td>
+                            <td>{{ product.serialNumber }}</td>
+                            <td>{{ product.quantity }}</td>
+                            <td>{{ product.weight }}</td>
+                            {% if product.length == '' and  product.width == '' and product.height =='' %}
+                                <td></td>
+                            {% else %}
+                                <td>{{ product.length ~ ' x ' ~ product.width ~ ' x '~  product.height }}</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

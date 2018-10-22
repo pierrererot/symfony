@@ -1,0 +1,26 @@
+easy_admin:
+    entities:
+        Usergroup:
+            class: App\Entity\Usergroup
+            label: "Groupes d'utilisateurs"
+            list:
+                sort: ['id', 'ASC']
+                title: '%%entity_label%%'
+                actions:
+                    - { name: 'show', label: '', icon: 'search' }
+                    - { name: 'edit', label: '', icon: 'edit' }
+                    - { name: 'delete', label: '', icon: 'trash' }
+                fields:
+                    - 'id'
+                    - { property: 'name', label: 'Libellé' }
+                    - { property: 'users', label: "Nombre d'utilisateurs" }
+            show:
+                fields:
+                    - 'id'
+                    - { property: 'name', label: 'Libellé', css_class: 'large' }
+                    - { property: 'users', label: "Utilisateurs" }
+            form:
+                fields:
+                    - { type: 'group', css_class: 'col-sm-4' }
+                    - { property: 'name', label: 'Label', css_class: 'large'}
+                    - { property: 'parent', label: 'Parent', css_class: 'large'}

@@ -1,0 +1,27 @@
+
+
+// Gentelella - Minimum SetUp
+@import '~gentelella/vendors/bootstrap/dist/css/bootstrap.min.css';
+@import '~gentelella/vendors/font-awesome/css/font-awesome.min.css';
+@import '~gentelella/vendors/nprogress/nprogress.css';
+
+// Others
+@import './buttonLoader.css';
+
+// Input
+@import '~gentelella/vendors/select2/dist/css/select2.min.css';
+@import '~gentelella/vendors/bootstrap-daterangepicker/daterangepicker';
+@import './malot-bootstrap-datetimepicker.min.css';
+@import './mickaelr-jquery-stepProgressBar.css';
+
+// Datatables
+@import '~gentelella/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css';
+@import '~gentelella/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css';
+@import '~gentelella/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css';
+@import '~gentelella/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css';
+
+// Gentelella
+@import '~gentelella/build/css/custom.min.css';
+
+// App custom CSS
+@import './custom.css';

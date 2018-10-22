@@ -1,0 +1,20 @@
+easy_admin:
+    design:
+        menu:
+            - label: 'menu.user'
+              children:
+                  - { entity: 'User', icon: 'th-list', label: 'menu.user.list', params: { sortField: 'username', sortDirection: 'ASC' }, default: true }
+                  - { entity: 'Usergroup', icon: 'tags', label: 'menu.user_group', params: { sortField: 'name', sortDirection: 'ASC' } }
+                  - { entity: 'User', icon: 'plus-circle', label: 'menu.user.add', params: { action: 'new' } }
+            - { label: 'Prospects', entity: 'Prospects' }
+            - { label: 'Features', entity: 'Features' }
+            - { label: 'Comments', entity: 'Comments' }
+            - { label: 'Agencies', entity: 'Agencies' }
+            - { label: 'Checkpoints', entity: 'Checkpoints' }
+            - { label: 'Clients', entity: 'Clients' }
+            - { label: 'Referentiel Activity', entity: 'ReferentielActivity' }
+            - { label: 'Referentiel Benefit', entity: 'ReferentielBenefit' }
+            - { label: 'Referentiel EAN', entity: 'ReferentielEAN' }
+            - { label: 'Referentiel Exploitation', entity: 'ReferentielExploitation' }
+            - { label: 'Traders', entity: 'Traders' }
+            - { label: 'Parameters', entity: 'Parameters' }

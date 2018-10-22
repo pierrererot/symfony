@@ -1,0 +1,83 @@
+{% extends "layouts/wrapper/content.html.twig" %}
+
+{% block title %} ProfileTitle {% endblock %}
+
+{% block subtitle %} Edit Profile {% endblock %}
+
+{% block content %}
+
+    {% for client in clients %}
+        {% if client is not null %}
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Client</h2>
+                    <div class="clearfix"></div>
+                </div>
+            <div>
+                <p>SourceReference : {{ client.sourceReference }}</p>
+
+        {% endif %}
+
+        {% if client.agencies is not null and client.agencies|length > 0 %}
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>Agences</h2>
+                    <div class="clearfix"></div>
+                </div>
+                {% for agency in client.agencies %}
+                    <div>
+                        <p>code : {{ agency.code }}</p>
+                        <p>database : {{ agency.database }}</p>
+                        <p>label : {{ agency.label }}</p>
+                        {% for trader in agency.trader %}
+                            <p> commercial : {{ trader.label }}</p>
+                        {% endfor %}
+                    </div>
+                    <br />
+                {% endfor %}
+            </div>
+        {% endif %}
+        </div>
+        </div>
+    {% endfor %}
+
+    {% if form is defined and form is not null %}
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Change Password</h2>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+                <div class="col-md-6 col-xs-12">
+
+                    {#FORM - START#}
+                    {{ form_start(form,{ 'attr': {'class': 'form-horizontal form-label-left'} }) }}
+
+                    {#USERNAME#}
+                    <div class="form-group">
+                        {{ form_label(form.username, null, {'label_attr':{'class':'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            {{ form_widget(form.username, {'attr':{'class':'form-control'}}) }}
+                        </div>
+                    </div>
+
+                    {#PASWWORD#}
+                    {%  for password in form.password %}
+                        <div class="form-group">
+                            {{ form_label(password, null, {'label_attr':{'class':'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                {{ form_widget(password, {'attr':{'class':'form-control'}}) }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {#ENVOYER / SUBMIT#}
+                    <button>Envoyer</button>
+
+                    {#FORM - END#}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

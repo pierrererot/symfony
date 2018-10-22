@@ -1,0 +1,38 @@
+easy_admin:
+    entities:
+        Comments:
+            templates:
+                # Twig namespace template syntax
+                paginator: '@App/Default/fragments/_showzz.html.twig'
+                # legacy template syntax works too:
+                # paginator: 'AppBundle:Default:fragments/_paginator.html.twig'
+            class: App\Entity\OrderComment
+            label: 'Comments'
+            list:
+                sort: ['id', 'ASC']
+                actions:
+                    - { name: 'show', label: '', icon: 'search' }
+                    - { name: 'edit', label: '', icon: 'edit' }
+                    - { name: 'delete', label: '', icon: 'trash' }
+                fields:
+                    - id
+                    - createdAt
+                    - updatedAt
+                    - content
+                    - order.id
+                    - user
+            show:
+                fields:
+                    - id
+                    - createdAt
+                    - updatedAt
+                    - content
+                    - order.id
+                    - user
+            form:
+                fields:
+                    - id
+                    - updatedAt
+                    - content
+
+

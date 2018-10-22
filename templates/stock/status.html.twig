@@ -1,0 +1,149 @@
+{% extends 'layouts/wrapper/content.html.twig' %}
+
+{% block subtitle %} {% trans %}stock.status.subtitle{% endtrans %} {% endblock %}
+
+{% block content %}
+
+    <div class="x_panel">
+        <div class="x_content">
+
+            <form class="form-horizontal col-md-12 col-sm-12 col-xs-12">
+
+                <div class="row">
+
+                    {{ include ('component/button-date.html.twig', {'label':'stock.filter.status.date.label'|trans, 'id':5} ) }}
+
+                </div>
+                <div class="row">
+
+                    {{ include ('component/select.html.twig', {'label':'stock.filter.deposit.label'|trans, 'id':0, 'placeholder':'stock.filter.deposit.placeholder'|trans, 'entityList': app.user.agencies }) }}
+
+                    {{ include ('component/select.html.twig', {'label':'stock.filter.client_label.label'|trans, 'id':2, 'placeholder':'stock.filter.client_label.placeholder'|trans, 'optionList': app.user.clients }) }}
+
+                </div>
+                <div class="row">
+
+                    {{ include ('component/input.html.twig', {'label':'stock.filter.deal.placeholder'|trans, 'id':3, 'placeholder':'stock.filter.deal.placeholder'|trans }) }}
+
+                    {{ include ('component/select.html.twig', {'label':'stock.filter.movement.label'|trans, 'id':13, 'placeholder':'stock.filter.movement.placeholder'|trans, 'optionList': selects['movement'] }) }}
+
+                </div>
+            </form>
+       </div>
+    </div>
+    <div class="x_panel">
+        <div class="x_content">
+
+            {{ include ('component/datatable.html.twig', {'id':'status'}) }}
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block JSloadWhenPageIsReady %}
+    <script type="text/javascript">
+        var loadWhenPageIsReady = function($, moment) {
+
+            var columnDate = 5;
+            var columnFirstArticle = 14;
+            var columnArticle = 15;
+            var columnFirstCmd = 16;
+            var columnCmd = 17;
+
+            var dateSpan = document.querySelector('#date' + columnDate + ' span')
+            dateSpan.innerHTML = moment().format('DD/MM/YYYY HH:mm');
+
+            var table = $('#status').loadDataTable(
+                window.location.href + "data",
+                [
+                    {"width":"15%", "name":"AGENCY",            "title":"{{ 'stock.column.agency.label'|trans }}"},
+                    {"width":"10%", "name":"CLIENT",            "title":"{{ 'stock.column.client_code.label'|trans }}"},
+                    {"width":"10%", "name":"LAB_CLIENT",        "title":"{{ 'stock.column.client_label.label'|trans }}"},
+                    {"width":"15%", "name":"AFFAIRE",            "title":"{{ 'stock.column.deal.label'|trans }}"},
+                    {
+                        "width": "5%",
+                        "name": "QTE_REEL",
+                        "title": "{{ 'stock.column.actual_quantity.label'|trans }}",
+                        "render": function (data, type, row) {
+                            if (row[4] == 0) {
+                                return row[4] + ' <i><em>(' + row[23] + ')</em><i>'
+                            } else {
+                                return row[4]
+                            }
+                        },
+                    },
+                    {"width":"0%", "name":"IN_STOCK",           "visible":false, "searchable":false},
+                    {"width":"8%", "name":"ENTREE_RESEAU",      "title":"{{ 'stock.column.in_network_at.label'|trans }}"},
+                    {"width":"8%", "name":"DERNIER_MOUVEMENT",  "title":"{{ 'stock.column.last_movement_at.label'|trans }}"},
+                    {"width":"4%", "name":"SOLDE_RECEP",        "title":"{{ 'stock.column.balance_RECEP.label'|trans }}"},
+                    {"width":"4%", "name":"SOLDE_FUSION",        "title":"{{ 'stock.column.balance_FUSION.label'|trans }}"},
+                    {"width":"4%", "name":"SOLDE_REGUL",        "title":"{{ 'stock.column.balance_REGUL.label'|trans }}"},
+                    {"width":"4%", "name":"SOLDE_PREPA",        "title":"{{ 'stock.column.balance_PREPA.label'|trans }}"},
+                    {"width":"4%", "name":"DUREE_STOCK",        "title":"{{ 'stock.column.warehouse_duration.label'|trans }}"},
+                    {"width":"0%", "name":"MVT",                "visible":false},
+                    {"width":"0%", "name":"PREMIER_ARTICLE",    "visible":false, "searchable":false},
+                    { "width":"23%",
+                        "name":"ARTICLE",
+                        "title": "{{ 'stock.column.items.label'|trans }}" +'&nbsp<span class="fa fa-search-minus"></span>',
+                        "render": function ( data, type, row ) {
+                            if(row[columnArticle] !== null){
+                                let dataToShow = row[columnFirstArticle];
+                                if(row[columnArticle] !== row[columnFirstArticle]){
+                                    dataToShow += "&nbsp<span class='fa fa-search-plus'></span>"
+                                }
+                                return dataToShow
+                            }else{
+                                return "-"
+                            }
+                        },
+                        "className":'details-control',
+                        orderable:false
+                    },
+                    {"width":"0%", "name":"PREMIER_REF_CDE", "title":"Ref Cde", visible:false, "searchable":false},
+                    { "width":"12%",
+                        "name":"REF_CDE",
+                        "title":'Cde Client &nbsp<span class="fa fa-search-minus"></span>',
+                        "render": function ( data, type, row ) {
+                            if(row[columnCmd] !== null){
+                                let dataToShow = row[columnFirstCmd];
+                                if(row[columnCmd] !== row[columnFirstCmd]){
+                                    dataToShow += "&nbsp<span class='fa fa-search-plus'></span>"
+                                }
+                                return dataToShow
+                            }else{
+                                return "-"
+                            }
+                        },
+                        "className":'details-control',
+                        orderable:false
+                    },
+                    {"width":"4%", "name":"NB",          "title":"NB"},
+                    {"width":"4%", "name":"COULEUR",     "title":"Couleur"},
+                    {"width":"8%", "name":"DF",          "title":"Durée Franchise"},
+                    {"width":"8%", "name":"TYPE_FACTU",  "title":"Type Facturation"},
+                    {"width":"8%", "name":"PU",          "title":"Prix Unitaire"},
+                    {"width":"8%", "title":"Qté last Mouvement", visible:false},
+                    {"width":"8%", "name":"NB_J_NET",    "title":"NB jour Net",},
+                    {"width":"8%", "name":"NB_J_FACTU",  "title":"NB jour Facturable"},
+                    {"width":"8%", "name":"MONTANT", "title":"Montant" },
+                ],
+                window.location.href + 'export',
+                function(){
+                    let date = moment($('#date'+columnDate).data("datetimepicker").getDate());
+                    return "{{ 'stock.status.filename.prefix'|trans }}" + date.format('YYYYMMDDHHmm') + '.csv';
+                },
+                14,
+                "{{ 'stock.column.hidden.label'|trans|upper }}:",
+                [null, null, null, null,null, { "search": moment().startOf('day').format('DD/MM/YYYY HH:mm') }, null, null, null, null, null, null, null, null, null],
+                function (row) {
+                    return "<div>" + row.data()[columnArticle] + "</div><div>" + row.data()[columnCmd];
+                }
+            );
+
+            // Initilaze Date
+            $('.customdatepicker').loadCustomDatetimePicker(table, 5);
+
+        };
+    </script>
+{% endblock %}

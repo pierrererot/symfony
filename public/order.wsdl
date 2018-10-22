@@ -1,0 +1,95 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="https://extranet.altead.com/soap/order" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" name="OrderSoapService" targetNamespace="https://extranet.altead.com/soap/order">
+    <types>
+        <xsd:schema targetNamespace="https://extranet.altead.com/soap/order">
+            <xsd:complexType name="ScvStep">
+                <xsd:all>
+                    <xsd:element name="statusCode" type="xsd:string" nillable="true"/>
+                    <xsd:element name="statusLabel" type="xsd:string" nillable="true"/>
+                    <xsd:element name="date" type="xsd:string" nillable="true"/>
+                    <xsd:element name="label" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfScvStep">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:ScvStep[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="Product">
+                <xsd:all>
+                    <xsd:element name="code" type="xsd:string" nillable="true"/>
+                    <xsd:element name="designation" type="xsd:string" nillable="true"/>
+                    <xsd:element name="poids" type="xsd:string" nillable="true"/>
+                    <xsd:element name="numeroDeSerie" type="xsd:string" nillable="true"/>
+                    <xsd:element name="longueur" type="xsd:string" nillable="true"/>
+                    <xsd:element name="largeur" type="xsd:string" nillable="true"/>
+                    <xsd:element name="hauteur" type="xsd:string" nillable="true"/>
+                    <xsd:element name="fm0" type="xsd:string" nillable="true"/>
+                    <xsd:element name="fm1" type="xsd:string" nillable="true"/>
+                    <xsd:element name="fm2" type="xsd:string" nillable="true"/>
+                    <xsd:element name="quantity" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfProduct">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:Product[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+    <portType name="OrderSoapServicePort">
+        <operation name="replaceScv">
+            <documentation>replaceScv</documentation>
+            <input message="tns:replaceScvIn"/>
+            <output message="tns:replaceScvOut"/>
+        </operation>
+        <operation name="replaceOrderProducts">
+            <documentation>replaceOrderProducts</documentation>
+            <input message="tns:replaceOrderProductsIn"/>
+            <output message="tns:replaceOrderProductsOut"/>
+        </operation>
+    </portType>
+    <binding name="OrderSoapServiceBinding" type="tns:OrderSoapServicePort">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="replaceScv">
+            <soap:operation soapAction="https://extranet.altead.com/soap/order#replaceScv"/>
+            <input>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="https://extranet.altead.com/soap/order"/>
+            </input>
+            <output>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="https://extranet.altead.com/soap/order"/>
+            </output>
+        </operation>
+        <operation name="replaceOrderProducts">
+            <soap:operation soapAction="https://extranet.altead.com/soap/order#replaceOrderProducts"/>
+            <input>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="https://extranet.altead.com/soap/order"/>
+            </input>
+            <output>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="https://extranet.altead.com/soap/order"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="OrderSoapServiceService">
+        <port name="OrderSoapServicePort" binding="tns:OrderSoapServiceBinding">
+            <soap:address location="https://extranet.altead.com/soap/order"/>
+        </port>
+    </service>
+    <message name="replaceScvIn">
+        <part name="orderCode" type="xsd:string"/>
+        <part name="scv" type="tns:ArrayOfScvStep"/>
+    </message>
+    <message name="replaceScvOut">
+        <part name="return" type="xsd:boolean"/>
+    </message>
+    <message name="replaceOrderProductsIn">
+        <part name="orderCode" type="xsd:string"/>
+        <part name="products" type="tns:ArrayOfProduct"/>
+    </message>
+    <message name="replaceOrderProductsOut">
+        <part name="return" type="xsd:boolean"/>
+    </message>
+</definitions>

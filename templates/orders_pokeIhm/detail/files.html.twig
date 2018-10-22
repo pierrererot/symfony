@@ -1,0 +1,33 @@
+<div id="content-files" role="tabpanel" class="tab-pane fade" id="tab_content44" aria-labelledby="profile-tab">
+    {# Articles #}
+    <div class="x_panel">
+        <div class="x_content">
+            <div class="row">
+                {% for file in order.files %}
+                    <div class="col-md-6">
+                        <ul class="list-unstyled msg_list">
+                            <li>
+                                <a href="{{
+                                path(
+                                    'dl_file',
+                                    {
+                                        (constant('\App\\Controller\\FileDownloaderController::PARAMETER_FILENAME')):file.filename
+                                    }
+                                )
+                                }}">
+
+                                    <span>
+                                        <span class="fa fa-file-pdf-o image"></span>
+                                        <span class="">{{ file.filename }}</span>
+
+                                    </span>
+                                </a>
+                                <span class="time">{{ "3 days" }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

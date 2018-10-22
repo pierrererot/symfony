@@ -1,0 +1,55 @@
+easy_admin:
+    entities:
+        User:
+            templates:
+                # Twig namespace template syntax
+                paginator: '@App/Default/fragments/_showzz.html.twig'
+                # legacy template syntax works too:
+                # paginator: 'AppBundle:Default:fragments/_paginator.html.twig'
+            class: App\Entity\Users
+            label: 'Utilisateurs'
+            list:
+                sort: ['id', 'ASC']
+                actions:
+                    - { name: 'show', label: '', icon: 'search' }
+                    - { name: 'edit', label: '', icon: 'edit' }
+                    - { name: 'delete', label: '', icon: 'trash' }
+                fields:
+                    - id
+                    - enabled
+                    - clients
+                    - contacts
+                    - { property: 'admin', type: 'boolean', label: 'Administrateur' }
+                    - username
+                    - { property: 'createdAt', type: 'datetime', format: 'j / M / Y', label: 'Créé le' }
+                    - { property: 'authenticationMethod', type: 'string',label: 'Méthode d authentification' }
+            show:
+                fields:
+                    - id
+                    - clients
+                    - contacts
+                    - { property: 'username', css_class: 'large' }
+                    - { property: 'enabled', label: 'active' }
+                    - createdAt
+                    - { property: 'usergroups', label: "Groupes d'utilisateurs" }
+                    - { property: 'authenticationMethod', label: "Méthode d'authentification" }
+            edit:
+                fields:
+                    - clients
+                    - contacts
+                    - { property: 'password', type: 'password', label: 'Mot de passe' }
+            form:
+                fields:
+                    - { type: 'group', css_class: 'col-sm-8', label: 'Informations générales', icon: 'pencil' }
+                    - { property: 'login', css_class: 'large' }
+                    - { property: 'username', css_class: 'large' }
+                    - { type: 'divider' }
+                    - { property: 'authenticationMethod', label: 'Méthode d authentification' }
+                    - { property: 'password', type: 'password', label: 'Mot de passe' }
+                    - { property: 'usergroups', label: "Groupes d'utilisateurs" }
+                    - { type: 'group', css_class: 'col-sm-4', label: "Détails de l'utilisateur", icon: 'cube' }
+                    - { type: 'section', label: 'Paramètres avancés', icon: 'warning'}
+                    - { property: 'enabled', label: 'active' }
+                    - { property: 'createdAt', type: 'datetime' }
+                    - { type: 'group', css_class: 'col-sm-8 new-row' }
+                    - { type: 'group', css_class: 'col-sm-4' }

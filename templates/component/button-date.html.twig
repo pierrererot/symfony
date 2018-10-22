@@ -1,0 +1,12 @@
+{% extends 'component/abstract-form-component.html.twig' %}
+{% block htmlComponent %}
+
+    <label>{{ label }}</label>
+    <button type="button" class="input-group date  btn btn-primary dropdown-toggle customdatepicker col-sm-12" id="date{{ id }}">
+        <i class="fa fa-calendar"></i>
+        <span></span>
+        <i class="fa fa-caret-down"></i>
+    </button>
+
+
+{% endblock %}

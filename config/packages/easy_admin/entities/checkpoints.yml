@@ -1,0 +1,26 @@
+easy_admin:
+    entities:
+        Checkpoints:
+            templates:
+                paginator: '@App/Default/fragments/_showzz.html.twig'
+            class: App\Entity\Checkpoint
+            label: 'Agences'
+            list:
+                sort: ['id', 'ASC']
+                actions:
+                    - { name: 'show', label: '', icon: 'search' }
+                    - { name: 'edit', label: '', icon: 'edit' }
+                    - { name: 'delete', label: '', icon: 'trash' }
+                fields:
+                    - id
+                    - address
+                    - label
+            show:
+                fields:
+                    - id
+                    - address
+                    - label
+            form:
+                fields:
+                    - address
+                    - label

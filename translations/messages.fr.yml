@@ -1,0 +1,156 @@
+# Admin
+menu.user: Utilisateurs
+menu.user_group: 'Groupe d''utilisateurs'
+menu.user.list: 'Liste d''utilisateurs'
+menu.user.add: 'Ajouter utilisateur'
+enabled: Activé
+path: Chemin
+name: Nom
+User: Utilisateur
+Users: Utilisateurs
+Usergroup: 'Groupe d''utilisateurs'
+Usergroups: 'Groupes d''utilisateurs'
+Feature: Fonctionnalité
+Features: Fonctionnalités
+order.tracking.title: 'Suivi des commandes'
+completed: 'Terminée'
+in_progress: 'En cours'
+ready: 'Prêt'
+Order: Commande
+Orders: Commandes
+Comment: Commentaire
+Comments: Commentaires
+Agency: Agence
+Agencies: Agences
+Referentiel Activity: Référentiel d'activité
+Referentiel Benefit: Référentiel de prestation
+Referentiel Exploitation: Référentiel portefeuille
+ReferentielExploitation: Référentiel portefeuille
+Trader: Commercial
+Traders: Commerciaux
+Database name: Base de données
+Joncture: Jointure
+
+# Public - GENERIC
+
+page.title.prefix: 'AltéAd - '
+
+    # Navigation Bar
+page.sidemenu.home: 'Accueil'
+page.sidemenu.order: 'Commandes'
+page.sidemenu.order.create: 'Nouvelle commande'
+page.sidemenu.order.list: 'Liste des commandes'
+page.sidemenu.stock: 'Stock'
+page.sidemenu.stock.movement: 'Entrées/Sorties'
+page.sidemenu.stock.status: 'Etat de Stock'
+page.sidemenu.stock.statuser: 'Statistiques Utilisateur'
+
+Client: 'Client'
+Date: 'Date'
+Checkpoint: 'Site'
+#######################################################################################################
+############################ STOCK
+#######################################################################################################
+    # subtitles
+stock.status.subtitle: 'Etat du Stock'
+stock.statuser.subtitle: 'Statistiques utilisateur'
+stock.movement.subtitle: 'Mouvements de stock'
+
+    # Filters
+stock.filter.status.date.label: 'Stock en date du:'
+stock.filter.statuser.date.label: 'Période:'
+stock.filter.movement.date.label: 'Période:'
+
+stock.filter.deal.label: 'Commande d''entée'
+stock.filter.deal.placeholder: 'Choix commande'
+stock.filter.client_code.label: 'Code Client'
+stock.filter.client_code.placeholder: 'Choix des clients'
+stock.filter.client_label.label: 'Client'
+stock.filter.client_label.placeholder: 'Choix des clients'
+stock.filter.condition.label: 'Etat'
+stock.filter.condition.placeholder: 'Choix de l''Etat'
+stock.filter.deposit.label: 'Dépot'
+stock.filter.deposit.placeholder: 'Choix des dépots'
+stock.filter.external_reference.label: 'Référence commande personalisée'
+stock.filter.external_reference.placeholder: 'Chercher commande personalisée'
+stock.filter.internal_reference.label: 'Référence commande'
+stock.filter.internal_reference.placeholder: 'Chercher commande'
+stock.filter.items.label: 'Article'
+stock.filter.items.placeholder: 'Chercher article'
+stock.filter.movement.label: 'Mouvement'
+stock.filter.movement.placeholder: 'Choix du mouvement'
+stock.filter.movement_type.label: 'Type'
+stock.filter.movement_type.placeholder: 'Choix du type'
+stock.filter.username.label: 'Utilisateur'
+stock.filter.username.placeholder: 'Choix des utilisateurs'
+
+    # Columns
+stock.column.actual_quantity.label: 'Nb support'
+stock.column.deal.label:  'Commande d''entrée'
+stock.column.balance_PREPA.label: 'PREPA'
+stock.column.balance_RECEP.label: 'RECEP'
+stock.column.balance_REGUL.label: 'REGUL'
+stock.column.balance_FUSION.label: 'FUSION'
+stock.column.client_code.label: 'Code Client'
+stock.column.client_label.label: 'Nom Client'
+stock.column.condition.label : 'Etat'
+stock.column.agency.label: 'Dépot'
+stock.column.external_reference.label: 'Référence commande personalisée'
+stock.column.in_network_at.label: 'Entrée Réseau'
+stock.column.internal_reference.label: 'Référence commande'
+stock.column.items.label: 'Articles'
+stock.column.last_movement_at.label: 'Dernier mouvement'
+stock.column.moved_at.label: 'Date'
+stock.column.movement.label: 'Mvt'
+stock.column.movement_type.label: 'Type'
+stock.column.username.label: 'Utilisateur'
+stock.column.warehouse_duration.label: 'Durée'
+
+    # Export filename
+stock.status.filename.prefix: 'Etat_du_stock'
+stock.movement.filename.prefix: 'Mouvement_de_Stock_du_'
+stock.statuser.filename.prefix: 'Statistique_Utilisateur_du_'
+stock.filename.middle: '_au_'
+
+#######################################################################################################
+############################ ORDERS
+#######################################################################################################
+order.detail.tab.label.state: 'Etat'
+order.detail.tab.label.information: 'Information'
+order.detail.tab.label.products: 'Articles'
+order.detail.tab.label.comments: 'Commentaires'
+order.detail.tab.label.files: 'Fichiers'
+
+order.label.adress: 'Adresse'
+order.label.adress.recipient: 'Destinataire'
+order.label.adress.street: 'Rue'
+order.label.adress.postcode: 'Code Postal'
+order.label.adress.city: 'Ville'
+order.label.adress.country: 'Pays'
+
+order.label.internal_reference: 'Référence AltéAd'
+order.label.external_reference: 'Référence Client'
+
+order.label.detail: 'Détail'
+order.label.planified_at: 'Planifié le'
+order.label.created_at: 'Créer le'
+order.label.created_by: 'Créer via'
+
+order.label.external_contact: 'Contact Client'
+order.label.internal_contact: 'Contact AltéAd'
+
+order.label.checkpoint.label: 'Libellé'
+order.label.checkpoint.contact: 'Contact'
+order.label.checkpoint.contactrdv: 'Contact - RDV'
+
+order.label.initial_checkpoint: 'Site Initial'
+order.label.final_checkpoint: 'Site Final'
+
+order.label.checkpoints: 'Historique'
+
+order.detail.progressbar.step.arrived_in_network: 'Arrivée dans le réseau'
+order.detail.progressbar.step.in_transit: 'En transit'
+order.detail.progressbar.step.reception_at_delivery_agency: 'Réception agence de livraison'
+order.detail.progressbar.step.delivery: 'Mise en livraison'
+order.detail.progressbar.step.delivered: 'Livré'
+order.detail.progressbar.step.invoiced: 'Facturé'

@@ -1,0 +1,198 @@
+{% extends "layouts/wrapper/content.html.twig" %}
+
+{% block subtitle %} Nouvelle commande {% endblock %}
+{% block contentTitle %}  {% endblock %}
+
+{% block content %}
+
+    <div class="x_panel">
+        <div class="x_title">
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            {% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+            <div id="wizard" class="form_wizard wizard_horizontal">
+            <ul class="wizard_steps">
+                    <li>
+                        <a onclick="wizardClick(1);" id="wizard1">
+                            <span class="step_no">1</span>
+                            <span class="step_descr">
+                                Cible<br />
+                                <small>Client</small>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a style="display: none;" onclick="wizardClick(2);" id="wizard2">
+                            <span class="step_no">2</span>
+                            <span class="step_descr">
+                                    Référentiels<br />
+                                    <small>Référentiels</small>
+                                </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a style="display: none;" onclick="wizardClick(3);" id="wizard3">
+                            <span class="step_no">3</span>
+                            <span class="step_descr">
+                                Plannification<br />
+                                <small>Points de contact</small>
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a style="display: none;" onclick="wizardClick(4);" id="wizard4">
+                            <span class="step_no">4</span>
+                            <span class="step_descr">
+                                Contenu<br />
+                                <small>Produit</small>
+                            </span>
+                        </a>
+                    </li>
+
+                </ul>
+                {{ form_start(form) }}
+
+                <div id="step-1">
+                    <div class="form-group">
+                        {{ form_row(form.client) }}
+                    </div>
+                </div>
+
+                <div style="display: none;" id="step-2">
+                    <div class="form-group">
+                        {{ form_row(form.referentielActivity) }}
+                        {{ form_row(form.referentielBenefit) }}
+                        {{ form_row(form.referentielExploitation) }}
+                    </div>
+                </div>
+
+                <div style="display: none;" id="step-3">
+                    <div class="form-group">
+                        {{ form_row(form.contact) }}
+                    </div>
+                </div>
+
+                <div style="display: none;" id="step-4">
+                    <div class="form-group">
+                        {{ form_row(form.comment) }}
+                        {{ form_row(form.referentielEAN1) }}
+                    </div>
+                </div>
+            </div>
+            <div onclick="nextClick();" id="next-button" val=1 class="btn">Suivant</div>
+            <button style="display:none;" id="submit-button" type="button submit" class="btn btn-primary">Enregistrer</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% block javascripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    <script type="text/javascript">
+
+        $( document ).ready(function() {
+            $('.js-example-basic-single').select2();
+
+            /*
+            i = 1;
+            while (i <= 4) {
+                $("#wizardClick" + i).show();
+                $("#step-" + i).show();
+                i++;
+            }
+            $("#submit-button").show();
+            */
+        });
+
+    function wizardClick(id) {
+        var i;
+        for (i = 1; i < 5; i++) {
+            if (i != id) {
+                document.getElementById("step-" + i).style.border = "none";
+                document.getElementById("wizard" + i).style.opacity = "0.5";
+            } else {
+                document.getElementById("step-" + i).style.padding = "5px";
+                document.getElementById("step-" + i).style.border = "thin solid #000000";
+                document.getElementById("wizard" + i).style.opacity = "1";
+            }
+        }
+    }
+
+    function nextClick() {
+        var nextButton = document.getElementById("next-button");
+        var submitButton = document.getElementById("submit-button");
+        var valueButton = parseInt(nextButton.getAttribute("val"));
+        nextButton.setAttribute("val", valueButton + 1);
+        document.getElementById("wizard" + (valueButton + 1)).style.display = "block";
+        if (valueButton >= 4) {
+            nextButton.style.display = "none";
+            submitButton.style.display = "block";
+        } else {
+            if (valueButton == 3) {
+                nextButton.style.display = "none";
+                submitButton.style.display = "block";
+            }
+            var i;
+            for (i = 1; i < 5; i++) {
+                if (i <= valueButton) {
+                    document.getElementById("step-" + i).style.display = "none";
+                }
+                if (i == valueButton + 1) {
+                    document.getElementById("step-" + i).style.display = "block";
+                }
+            }
+        }
+    }
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+
+        .select2 {
+            width: 100% !important;
+        }
+
+        #addressBlock {
+            min-height: 110px;
+        }
+
+        #newAddressIn input {
+            margin-bottom: 10px;
+        }
+
+        #newAddressOut input{
+            margin-bottom: 10px;
+        }
+
+        .column-section {
+            float: left;
+            width: 50%;
+            padding: 10px;
+        }
+
+        .rows:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .wizard_horizontal {
+            overflow: hidden;
+        }
+
+        #next-button {
+            border: 1px solid #73879c;
+        }
+
+        .input-new-order {
+            max-height: 50px;
+        }
+
+    </style>
+{% endblock %}
+
+{% endblock %}

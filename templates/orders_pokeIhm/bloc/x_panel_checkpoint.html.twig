@@ -1,0 +1,81 @@
+<div class="x_panel">
+    <div class="x_content">
+        <div>
+            <h2>{{ prefixTitle }} - <span >{{ checkpoint.label }}</span></h2>
+        </div>
+
+        <div class="col-12 col-md-6">
+            <fieldset class="data-group" >
+                <legend class="data-label"> {{ 'order.label.checkpoint.contact'|trans }}  </legend>
+                <div class="data-value">
+                    <i class="fa fa-phone"></i><div class="data" style="margin-left: 20px">{{ checkpoint.contactsite.phonenumber }}</div>
+                    <i class="fa fa-user"></i><div class="data" style="margin-left: 20px">{{ checkpoint.contactsite.name }} </div>
+                </div>
+            </fieldset>
+        </div>
+
+        <div class="col-12 col-md-6">
+            <fieldset class="data-group" >
+                <legend class="data-label"> {{ 'order.label.checkpoint.contactrdv'|trans }}  </legend>
+                <div class="data-value">
+                    <i class="fa fa-phone"></i><div class="data" style="margin-left: 20px">{{ checkpoint.rdvcontact.phonenumber }}</div>
+                    <i class="fa fa-user"></i><div class="data" style="margin-left: 20px">{{ checkpoint.rdvcontact.name }} </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-12 col-md-12">
+            <fieldset class="data-group-big">
+                <legend class="data-label"> {{ 'order.label.adress'|trans }}  </legend>
+                <div class="data-value">
+
+                    <div class="row">
+                        <div class="col-3 col-md-3">
+                            <div class="data-label"> {{ 'order.label.adress.recipient'|trans }} </div>
+                        </div>
+                        <div class="col-9 col-md-9">
+                            {{ checkpoint.address.recipient }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 col-md-3">
+                            <div class="data-label"> {{ 'order.label.adress.street'|trans }} </div>
+                        </div>
+                        <div class="col-6 col-md-9">
+                            {{ checkpoint.address.street }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 col-md-3">
+                            <div class="data-label"> {{ 'order.label.adress.postcode'|trans }} </div>
+                        </div>
+                        <div class="col-6 col-md-9">
+                            {{ checkpoint.address.postcode }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 col-md-3">
+                            <div class="data-label"> {{ 'order.label.adress.city'|trans }} </div>
+                        </div>
+                        <div class="col-6 col-md-9">
+                            {{ checkpoint.address.city }}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6 col-md-3">
+                            <div class="data-label"> {{ 'order.label.adress.country'|trans }} </div>
+                        </div>
+                        <div class="col-6 col-md-9">
+                            {{ checkpoint.address.country }}
+                        </div>
+                    </div>
+
+
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>

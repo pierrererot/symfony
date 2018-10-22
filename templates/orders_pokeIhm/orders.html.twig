@@ -1,0 +1,255 @@
+{% extends 'layouts/wrapper/content.html.twig' %}
+
+{% block subtitle %} {% trans %}Liste des Commandes{% endtrans %} {% endblock %}
+
+{% block content %}
+
+    <div class="x_panel">
+
+        <form id="form" class="form-horizontal col-md-12 col-sm-12 col-xs-12" >
+            <div>
+                <div class="row">
+
+                    {{ include ('component/button-date.html.twig', {'label':'Date de l\'opération'|trans, 'id':11} ) }}
+                    <div class="clearfix"></div>
+                </div>
+                <div class="row">
+                    {{ include ('component/input.html.twig', {'label':'Référence'|trans, 'id':1, 'placeholder':'Votre référence'|trans }) }}
+
+                    {{ include ('component/select.html.twig', {'label':'Statut'|trans, 'id':10, 'placeholder':'Statut de la commande'|trans, 'optionList': selects['status'] }) }}
+
+                    {{ include ('component/input.html.twig', {'label':'Référence AltéAd'|trans, 'id':12, 'placeholder':'Référence AltéAd'|trans }) }}
+                </div>
+
+                <div class="row">
+
+                    <button type="button" class="collapse-link">
+                        + de filtres
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+
+                    <button type="button" id="raz" class="">
+                        <i class="fa fa-close"></i>
+                        RAZ filtres
+                    </button>
+                </div>
+
+            </div>
+            <div class="x_content" style="display: none;">
+
+                <div class="row">
+                    {{ include ('component/select.html.twig', {'label':'Affaire'|trans, 'id':13, 'placeholder':'Regoupement de commande'|trans, 'optionList': selects['deal'] }) }}
+
+                    {% if( is_granted(constant('App\\Security\\User\\AbstractUser::ROLE_ADMIN')) ) %}
+                        {{ include ('component/select.html.twig', {'label':'Agence'|trans, 'id':14, 'placeholder':'Agence'|trans, 'optionList': selects['agencies'] }) }}
+                        {{ include ('component/select.html.twig', {'label':'Client'|trans, 'id':18, 'placeholder':'Compte client de la commande'|trans, 'optionList': selects['clients'] }) }}
+                    {% else %}
+                        {{ include ('component/select.html.twig', {'label':'Agence'|trans, 'id':14, 'placeholder':'Agence'|trans, 'entityList': app.user.agencies }) }}
+                        {{ include ('component/select.html.twig', {'label':'Client'|trans, 'id':18, 'placeholder':'Compte client de la commande'|trans, 'entityList': app.user.clients }) }}
+                    {% endif %}
+                </div>
+                <div class="row">
+
+                    {{ include ('component/selectOnlyOneValue.html.twig', {'label':'Rendez-vous pris ?'|trans, 'id':15, 'placeholder':'Rdv prit ? '|trans, 'booleanList':true }) }}
+
+                    {{ include ('component/select.html.twig', {'label':'Nature de l\'opération'|trans, 'id':16, 'placeholder':'Nature de l\'opération'|trans, 'optionList': selects['benefit'] }) }}
+
+                    {{ include ('component/input.html.twig', {'label':'CP de l\'opération'|trans, 'id':17, 'placeholder':'Code postal de l\'opération'|trans }) }}
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="x_panel">
+        <div class="x_content">
+
+            {{ include ('component/datatable.html.twig', {'id':'order'}) }}
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block JSloadWhenPageIsReady %}
+
+    <script type="text/javascript">
+
+
+        var loadWhenPageIsReady = function($, moment) {
+
+            let prefixSelect = 'select';
+            let prefixInputText = 'inputsearch';
+            let prefixDate = 'date';
+
+            var id_id =0;
+            var id_clientOrderReference = 1;
+            var id_clientReferenceClient = 2;
+            var id_typeMouvement = 3;
+            var id_origine_recipient = 4;
+            var id_origine_cp = 5;
+            var id_origine_ville = 6;
+            var id_destination_recipient = 7;
+            var id_destination_cp = 8;
+            var id_destination_ville = 9;
+            var id_statut = 10;
+            var id_operation_date = 11;
+            var id_reference_company = 12;
+            var id_affaire = 13;
+            var id_agence = 14;
+            var id_rdv = 15;
+            var id_nature_operation = 16;
+            var id_operation_cp = 17;
+            var id_client = 18;
+
+            var groupColumn = 13;
+            let id_table = 'order';
+
+            // Initilaze First Filter by Date
+            let dateSpan = document.querySelector('#date'+id_operation_date+' span');
+
+            if (!$.fn.getStorageItem(prefixDate + id_operation_date + 'htmlValue')) {
+                let initialValue = moment().startOf('day').format('DD/MM/YYYY HH:mm') + ' - ' + moment().endOf('day').format('DD/MM/YYYY HH:mm');
+                let initialValueHtml = moment().startOf('day').format('DD/MM/YYYY') + ' - ' + moment().endOf('day').format('DD/MM/YYYY');
+                $.fn.setStorageItem("date"+id_operation_date,initialValue);
+                $.fn.setStorageItem("date"+id_operation_date+'htmlValue',initialValueHtml);
+                dateSpan.innerHTML = initialValueHtml;
+            }
+
+            //Initialize Datatable
+            var table = $('#'+id_table).loadDataTable(
+
+                window.location.href + "/data",
+                [
+                    {"width": "0%", "className": 'redirect-detail-order',  visible:false},
+                    {"width": "10%","className": 'redirect-detail-order',   "title": "{{ 'Ref Cde'|trans }}" },
+                    {"width": "8%","className": 'redirect-detail-order',   "title": "{{ 'Ref Clt'|trans }}" },
+                    {"width": "8","className": 'redirect-detail-order',    "title": "{{ 'Type Mvt'|trans }}" },
+                    {"width": "8%", "className": 'redirect-detail-order',   "title": "{{ 'Origine - Nom'|trans }}"},
+                    {"width": "8%", "className": 'redirect-detail-order',   "title": "{{ 'Origine - CP'|trans }}"},
+                    {"width": "8%", "className": 'redirect-detail-order',  "title": "{{ 'Origine - Ville'|trans }}"},
+                    {"width": "8%", "className": 'redirect-detail-order',   "title": "{{ 'Destination - Nom'|trans }}"},
+                    {"width": "8%", "className": 'redirect-detail-order',   "title": "{{ 'Destination - CP'|trans }}"},
+                    {"width": "8%", "className": 'redirect-detail-order',  "title": "{{ 'Destination - Ville'|trans }}"},
+                    {"width": "8%", "className": 'redirect-detail-order',  "title": "{{ 'Statut'|trans }}"},
+                    {"width": "10%", "className": 'redirect-detail-order',  "title": "{{ 'Date d\'opération'|trans }}"},
+                    {"width": "0%", "className": 'redirect-detail-order',  visible:false},
+                    {"width": "0%", "className": 'redirect-detail-order',  visible:false},
+                    {"width": "0%", "className": 'redirect-detail-order',  visible:false},
+                    {"width": "0%", "className": 'redirect-detail-order',  visible:false},
+                    {"width": "0%", "className": 'redirect-detail-order',  visible:false},
+                    {"width": "0%", "className": 'redirect-detail-order',  visible:false},
+                    {"width": "0%", "className": 'redirect-detail-order',  visible:false}
+                ],
+                window.location + 'export',
+                function () {
+                    let inputData = $('#date'+id_operation_date).data('daterangepicker');
+                    let start = inputData.startDate;
+                    let end = inputData.endDate;
+                    return "{{ 'stock.movement.filename.prefix'|trans }}" + start.format('YYYYMMDDHHmm') + "{{ 'stock.filename.middle'|trans }}" + end.format('YYYYMMDDHHmm') + '.csv';
+                },
+                1,
+                "{{ 'Articles'|trans|upper }}:",
+                [
+                    null,
+                    prefixInputText + id_clientOrderReference,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    prefixSelect + id_statut,
+                    prefixDate + id_operation_date,
+                    prefixInputText + id_reference_company,
+                    prefixInputText + id_affaire,
+                    prefixSelect + id_agence,
+                    prefixSelect + id_rdv,
+                    prefixSelect + id_nature_operation,
+                    prefixInputText + id_operation_cp,
+                    prefixSelect + id_client
+                ],
+                function (row) {
+                    return row.data()[0];
+                }
+                ,
+                [[ groupColumn, 'asc'],
+                [ 0, 'asc']],
+                function ( settings ) {
+                    let api = this.api();
+                    let rows = api.rows( {page:'current'} ).nodes();
+                    let last=null;
+
+                    api.column(id_affaire, {page:'current'} ).data().each( function ( group, i ) {
+                        if ( last !== group ) {
+                            $(rows).eq( i ).before(
+                                '<tr class="group"><td colspan="13"> Affaire - '+group+'</td></tr>'
+                            );
+
+                            last = group;
+                        }
+                    } );
+                }
+            );
+
+            $('.customdatepicker').loadCustomDateRangePicker(table, id_operation_date);
+
+            // Gestion Group AFFAIRE
+            $('#order tbody').on( 'click', 'tr.group', function () {
+
+                let currentOrder = table.order()[0];
+                if ( currentOrder[0] === groupColumn && currentOrder[1] === 'asc' ) {
+                    table.order( [ groupColumn, 'desc' ] ).draw();
+                }
+                else {
+                    table.order( [ groupColumn, 'asc' ] ).draw();
+                }
+            } );
+
+
+
+            $('#order tbody').on( 'click', 'td.redirect-detail-order', function () {
+
+                if(table.row(this).data()[0] !== undefined ){
+                    let url = window.location.origin + '{{ path('poke_order_detail', {"orderId":"0000"}) }}';
+                    url = url.replace("0000", table.row(this).data()[0]);
+                    document.location.href = url;
+                }
+            });
+
+            // RAZ TEMPORAIRE
+            $('#raz').click(function () {
+
+                // Input
+                $("#form input[type='text']").each(function () {
+                    if( $(this).val() !== '') {
+                        $(this).val(null).trigger('change');
+                    }
+                });
+                // Select
+                $("#form select").each(function () {
+
+                    if( $(this).val().length !== 0) {
+                        $(this).val(null).trigger('change');
+                    }
+                });
+
+                // // Initilaze First Filter by Date
+                let dateSpan = document.querySelector('#date'+id_operation_date+' span');
+                dateSpan.innerHTML = moment().startOf('day').format('DD/MM/YYYY') + ' - ' + moment().endOf('day').format('DD/MM/YYYY');
+                table
+                    .search( '' )
+                    .columns().search( '' )
+                    .draw();
+                $.fn.setStorageItem('date' + id_operation_date, moment().startOf('day').format('DD/MM/YYYY HH:mm') + ' - ' + moment().endOf('day').format('DD/MM/YYYY HH:mm'));
+                table.columns(id_operation_date).search(moment().startOf('day').format('DD/MM/YYYY HH:mm') + ' - ' + moment().endOf('day').format('DD/MM/YYYY HH:mm')).draw();
+            })
+
+
+        }
+
+    </script>
+
+
+
+{% endblock %}

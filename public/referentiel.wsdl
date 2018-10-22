@@ -1,0 +1,223 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="https://extranet.altead.com/soap/referentiel" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" name="ReferentielSoapService" targetNamespace="https://extranet.altead.com/soap/referentiel">
+    <types>
+        <xsd:schema targetNamespace="https://extranet.altead.com/soap/referentiel">
+            <xsd:complexType name="ReferentielProduit">
+                <xsd:all>
+                    <xsd:element name="label" type="xsd:string" nillable="true"/>
+                    <xsd:element name="database" type="xsd:string" nillable="true"/>
+                    <xsd:element name="code" type="xsd:string" nillable="true"/>
+                    <xsd:element name="joncture" type="xsd:string" nillable="true"/>
+                    <xsd:element name="fm0Apt" type="xsd:string" nillable="true"/>
+                    <xsd:element name="fm0Spt" type="xsd:string" nillable="true"/>
+                    <xsd:element name="poids" type="xsd:string" nillable="true"/>
+                    <xsd:element name="longueur" type="xsd:string" nillable="true"/>
+                    <xsd:element name="largeur" type="xsd:string" nillable="true"/>
+                    <xsd:element name="hauteur" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfReferentielProduit">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:ReferentielProduit[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="ReferentielActivite">
+                <xsd:all>
+                    <xsd:element name="label" type="xsd:string" nillable="true"/>
+                    <xsd:element name="database" type="xsd:string" nillable="true"/>
+                    <xsd:element name="code" type="xsd:string" nillable="true"/>
+                    <xsd:element name="joncture" type="xsd:string" nillable="true"/>
+                    <xsd:element name="fm0Apt" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfReferentielActivite">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:ReferentielActivite[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="ReferentielTipf">
+                <xsd:all>
+                    <xsd:element name="label" type="xsd:string" nillable="true"/>
+                    <xsd:element name="database" type="xsd:string" nillable="true"/>
+                    <xsd:element name="code" type="xsd:string" nillable="true"/>
+                    <xsd:element name="joncture" type="xsd:string" nillable="true"/>
+                    <xsd:element name="label_extranet" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfReferentielTipf">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:ReferentielTipf[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="ReferentielPrestation">
+                <xsd:all>
+                    <xsd:element name="label" type="xsd:string" nillable="true"/>
+                    <xsd:element name="database" type="xsd:string" nillable="true"/>
+                    <xsd:element name="code" type="xsd:string" nillable="true"/>
+                    <xsd:element name="joncture" type="xsd:string" nillable="true"/>
+                    <xsd:element name="fm0Apt" type="xsd:string" nillable="true"/>
+                    <xsd:element name="fm1Apt" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfReferentielPrestation">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:ReferentielPrestation[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="Checkpoint">
+                <xsd:all>
+                    <xsd:element name="label" type="xsd:string" nillable="true"/>
+                    <xsd:element name="recipient1" type="xsd:string" nillable="true"/>
+                    <xsd:element name="recipient2" type="xsd:string" nillable="true"/>
+                    <xsd:element name="recipient3" type="xsd:string" nillable="true"/>
+                    <xsd:element name="street1" type="xsd:string" nillable="true"/>
+                    <xsd:element name="street2" type="xsd:string" nillable="true"/>
+                    <xsd:element name="street3" type="xsd:string" nillable="true"/>
+                    <xsd:element name="postcode" type="xsd:string" nillable="true"/>
+                    <xsd:element name="city" type="xsd:string" nillable="true"/>
+                    <xsd:element name="cedex" type="xsd:string" nillable="true"/>
+                    <xsd:element name="country" type="xsd:string" nillable="true"/>
+                    <xsd:element name="contactPhoneNumber" type="xsd:string" nillable="true"/>
+                    <xsd:element name="contactFullName" type="xsd:string" nillable="true"/>
+                    <xsd:element name="contactFax" type="xsd:string" nillable="true"/>
+                    <xsd:element name="contactEmail" type="xsd:string" nillable="true"/>
+                    <xsd:element name="contactRdvPhoneNumber" type="xsd:string" nillable="true"/>
+                    <xsd:element name="contactRdvFullName" type="xsd:string" nillable="true"/>
+                    <xsd:element name="contactRdvFax" type="xsd:string" nillable="true"/>
+                    <xsd:element name="contactRdvEmail" type="xsd:string" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="Agence">
+                <xsd:all>
+                    <xsd:element name="code" type="xsd:string" nillable="true"/>
+                    <xsd:element name="database" type="xsd:string" nillable="true"/>
+                    <xsd:element name="informations" type="tns:Checkpoint" nillable="true"/>
+                </xsd:all>
+            </xsd:complexType>
+            <xsd:complexType name="ArrayOfAgence">
+                <xsd:complexContent>
+                    <xsd:restriction base="soap-enc:Array">
+                        <xsd:attribute ref="soap-enc:arrayType" wsdl:arrayType="tns:Agence[]"/>
+                    </xsd:restriction>
+                </xsd:complexContent>
+            </xsd:complexType>
+        </xsd:schema>
+    </types>
+    <portType name="ReferentielSoapServicePort">
+        <operation name="upsertProduit">
+            <documentation>upsertProduit</documentation>
+            <input message="tns:upsertProduitIn"/>
+            <output message="tns:upsertProduitOut"/>
+        </operation>
+        <operation name="upsertActivite">
+            <documentation>upsertActivite</documentation>
+            <input message="tns:upsertActiviteIn"/>
+            <output message="tns:upsertActiviteOut"/>
+        </operation>
+        <operation name="upsertTipf">
+            <documentation>upsertTipf</documentation>
+            <input message="tns:upsertTipfIn"/>
+            <output message="tns:upsertTipfOut"/>
+        </operation>
+        <operation name="upsertPrestation">
+            <documentation>upsertPrestation</documentation>
+            <input message="tns:upsertPrestationIn"/>
+            <output message="tns:upsertPrestationOut"/>
+        </operation>
+        <operation name="upsertAgence">
+            <documentation>upsertAgence</documentation>
+            <input message="tns:upsertAgenceIn"/>
+            <output message="tns:upsertAgenceOut"/>
+        </operation>
+    </portType>
+    <binding name="ReferentielSoapServiceBinding" type="tns:ReferentielSoapServicePort">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="upsertProduit">
+            <soap:operation soapAction="https://extranet.altead.com/soap/referentiel#upsertProduit"/>
+            <input>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="https://extranet.altead.com/soap/referentiel"/>
+            </input>
+            <output>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="https://extranet.altead.com/soap/referentiel"/>
+            </output>
+        </operation>
+        <operation name="upsertActivite">
+            <soap:operation soapAction="https://extranet.altead.com/soap/referentiel#upsertActivite"/>
+            <input>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="https://extranet.altead.com/soap/referentiel"/>
+            </input>
+            <output>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="https://extranet.altead.com/soap/referentiel"/>
+            </output>
+        </operation>
+        <operation name="upsertTipf">
+            <soap:operation soapAction="https://extranet.altead.com/soap/referentiel#upsertTipf"/>
+            <input>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="https://extranet.altead.com/soap/referentiel"/>
+            </input>
+            <output>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="https://extranet.altead.com/soap/referentiel"/>
+            </output>
+        </operation>
+        <operation name="upsertPrestation">
+            <soap:operation soapAction="https://extranet.altead.com/soap/referentiel#upsertPrestation"/>
+            <input>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="https://extranet.altead.com/soap/referentiel"/>
+            </input>
+            <output>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="https://extranet.altead.com/soap/referentiel"/>
+            </output>
+        </operation>
+        <operation name="upsertAgence">
+            <soap:operation soapAction="https://extranet.altead.com/soap/referentiel#upsertAgence"/>
+            <input>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="https://extranet.altead.com/soap/referentiel"/>
+            </input>
+            <output>
+                <soap:body use="encoded" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="https://extranet.altead.com/soap/referentiel"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="ReferentielSoapServiceService">
+        <port name="ReferentielSoapServicePort" binding="tns:ReferentielSoapServiceBinding">
+            <soap:address location="https://extranet.altead.com/soap/referentiel"/>
+        </port>
+    </service>
+    <message name="upsertProduitIn">
+        <part name="produitList" type="tns:ArrayOfReferentielProduit"/>
+    </message>
+    <message name="upsertProduitOut">
+        <part name="return" type="xsd:boolean"/>
+    </message>
+    <message name="upsertActiviteIn">
+        <part name="activiteList" type="tns:ArrayOfReferentielActivite"/>
+    </message>
+    <message name="upsertActiviteOut">
+        <part name="return" type="xsd:boolean"/>
+    </message>
+    <message name="upsertTipfIn">
+        <part name="tipfList" type="tns:ArrayOfReferentielTipf"/>
+    </message>
+    <message name="upsertTipfOut">
+        <part name="return" type="xsd:boolean"/>
+    </message>
+    <message name="upsertPrestationIn">
+        <part name="prestationList" type="tns:ArrayOfReferentielPrestation"/>
+    </message>
+    <message name="upsertPrestationOut">
+        <part name="return" type="xsd:boolean"/>
+    </message>
+    <message name="upsertAgenceIn">
+        <part name="agenceList" type="tns:ArrayOfAgence"/>
+    </message>
+    <message name="upsertAgenceOut">
+        <part name="return" type="xsd:boolean"/>
+    </message>
+</definitions>

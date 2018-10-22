@@ -1,0 +1,11 @@
+{% extends 'component/abstract-form-component.html.twig' %}
+{% block htmlComponent %}
+    <label class="control-label"> {{ label }} </label>
+    <select id="select{{ id }}" class="select2 form-control" data-placeholder="{{ placeholder }}" style="width: 100%">
+        {% if booleanList is defined %}
+            <option value="">OUI et NON</option>
+            <option value="false">OUI</option>
+            <option value="true">NON</option>
+        {% endif %}
+    </select>
+{% endblock %}
